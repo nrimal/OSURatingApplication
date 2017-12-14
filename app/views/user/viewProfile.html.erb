@@ -1,0 +1,40 @@
+<div class='static'>
+    &nbsp;
+</div>
+    <div class='return'>
+        <%= link_to("Return Home", '/home/index', class:"btn btn-default button-topright") %>
+    </div>
+<div class='profileInformation'>
+
+    <div class='accountHeader'>
+        <h1>Account Information</h1>
+        <p>
+            <label>Email:</label> <%= current_user.email %>
+        </p>
+        <p>
+            <label>Average Rating:</label>
+            <%= @avgRating.round(3) %>
+            <label>Number of Posts:</label>
+            <%= @numberOfReviews %>
+        </p>
+        <p>
+            <%= link_to("Edit Profile", '/users/edit', class:"btn btn-default normalizedLinks") %>
+            <%= link_to("Sign Out", '/users/sign_out', class:"btn btn-default normalizedLinks", method: :delete) %>
+        </p>
+    </div>
+
+    <hr />
+
+    <br />
+    <div class='accountPosts'>
+        <h1>Facility Reviews</h1>
+        <div >
+            <% if @reviews == nil || @reviews.length == 0 then %>
+                <hr />
+                <p><label>There are currently no reviews from this user.</label></p>
+            <% else %>
+                <%= render partial: "layouts/post", :collection => @reviews, locals: {user: current_user.email} %>
+            <% end %>
+        </div>
+    </div>
+</div>

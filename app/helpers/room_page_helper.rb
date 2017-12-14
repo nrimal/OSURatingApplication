@@ -1,0 +1,2 @@
+module RoomPageHelper
+end

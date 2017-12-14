@@ -1,0 +1,46 @@
+<!-- Log In Page -->
+<!-- Updated by Matthew Deavers on 11/27/2017 to include error messages on failed login -->
+<div class='background'>
+    <%= link_to "Return Home", '/home/index', class:'btn btn-default back'%>
+    <div class='surrounding'>
+        <%if resource.errors.any? %>
+        <div class='middleBox boxInfo loginBoxInfo'></div>
+        <div class='accountHeader outer boxInfo loginBoxInfo'>
+        <% else %>
+        <div class='middleBox boxInfo loginBoxInfoNoErr'></div>
+        <div class='accountHeader outer boxInfo loginBoxInfoNoErr'>
+        <% end %>
+            <h2>Log in</h2>
+
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+            <% flash.each do |name, msg| %>
+                <% new_msg = "Invalid email or password." %>
+                <%= content_tag :div, new_msg, id: "flash_#{name}" %>
+            <% end %>
+            <div class="field">
+                <%= f.label :email %><br />
+                <%= f.email_field :email, autofocus: true, class:"form-control" %>
+            </div>
+
+            <div class="field">
+                <%= f.label :password %><br />
+                <%= f.password_field :password, autocomplete: "off", class:"form-control" %>
+            </div>
+
+            <% if devise_mapping.rememberable? -%>
+            <div class="field">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+            </div>
+            <% end -%>
+
+            <div class="actions">
+                <%= f.submit "Log in", class:"btn btn-default" %>
+            </div>
+            <% end %>
+            <br/>
+            <%= render "devise/shared/links" %>
+        </div>
+    </div>
+</div>

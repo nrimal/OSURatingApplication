@@ -1,0 +1,27 @@
+<!-- Forgot Password Page -->
+<div class='background'>
+    <%= link_to "Back", :back, class:'btn btn-default back'%>
+    <div class='surrounding'>
+        <div class='middleBox boxInfo forgotBoxInfo'></div>
+        <div class='accountHeader outer boxInfo forgotBoxInfo'>
+
+            <h2>Forgot your password?</h2>
+
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+            <%= render 'layouts/deviseErrors', object: resource %>
+
+            <div class="field">
+                <%= f.label :email %>
+                <%= f.email_field :email, autofocus: true, class:"form-control" %>
+            </div>
+
+            <div class="actions">
+                <%= f.submit "Send me reset password instructions", class:"btn btn-default" %>
+            </div>
+            <% end %>
+            <br/>
+            <%= render "devise/shared/links" %>
+        </div>
+
+    </div>
+</div>

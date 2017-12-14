@@ -1,0 +1,76 @@
+// Place all the styles related to the result controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$margin-result:30px;
+a.sorter:hover{
+    color: red;
+}
+ .rowselect:hover {
+    cursor: pointer;
+ }
+ .caret{
+     cursor: pointer;
+ }
+ .button-topright{
+     position: absolute;
+     right: 1%;
+ }
+ .buildingInput{
+     width: 40%;
+ }
+ .table{
+    margin-top: $margin-result;
+ }
+ .result-font{
+     color: black;
+ }
+ .form-inline .inresult{
+     margin-left: $margin-result;
+ }
+ .form-inline label:not(:first-child){
+    margin-left: 30px;
+}
+.form-inline label:first-child{
+    margin-left: 20px;
+}
+hr.results {
+    margin-top: 10px;
+    margin-bottom: 1px;
+    border-style: solid;
+    border-width: 3px;
+}
+.top-filter{
+    margin-top: $margin-result;
+}
+
+
+.dropdown {
+    float: right;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.hidden {
+    display: none;
+}
+.center {
+    text-align: center;
+}

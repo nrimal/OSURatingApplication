@@ -1,0 +1,12 @@
+<div class='background'>
+    <%= link_to "Return to Home", "../home/index", class:'btn btn-default back'%>
+    <div class='surrounding'>
+        <div class='middleBox boxInfo notLoggedInBoxInfo'></div>
+        <div class='accountHeader outer boxInfo notLoggedInBoxInfo'>
+            <h2>Woops. An error occured:</h2>
+            <% if flash[:notice] %>
+                <p><%= flash[:notice] %></p>
+            <% end %>
+        </div>
+    </div>
+</div>

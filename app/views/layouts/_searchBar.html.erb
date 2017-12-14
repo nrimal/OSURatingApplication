@@ -1,0 +1,21 @@
+ <% types = FacilityType.all%>
+ <% building = Building.all%>
+ <% typeShow = types.map { |val| val.ftype } %>
+ <% typeShow.sort! %>
+ <% buildingShow = building.map { |val| val.name } %>
+    <div class="row top-filter form-inline">
+     <%= form_tag("/result/showResult", method: "get") do %>
+            <div class="form-group">
+            <label>Building
+             <%= select_tag(:building, options_for_select(buildingShow), prompt: "Select a Building", class:"buildingInput") %>
+            </label>
+            <label>Facility
+               <%= select_tag(:facility, options_for_select(typeShow), prompt: "Select a Facility") %>
+            </label>
+            <label>Room
+             <%= text_field_tag(:room, @tempRoom) %>
+            </label>
+            </div>
+            <%= submit_tag("Search", class: "btn btn-primary inresult") %>
+        <%end%>
+    </div>

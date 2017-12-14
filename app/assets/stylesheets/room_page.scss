@@ -1,0 +1,49 @@
+// Place all the styles related to the roomPage controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// Place all the styles related to the user controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#map {
+  width: 300px;
+  height: 200px;
+}
+
+
+div.roomDetails{
+  color:black;
+  border: none;
+  padding-top: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin: 0 auto;
+}
+
+
+/* Stuff for the user home page */
+
+div.pageLayout {
+    background-color: white;
+    width: 70%;
+    margin: 0 auto;
+    min-height: 100vh;
+    z-index: 4;
+    position:absolute;
+    left: 0;
+    right: 0;
+}
+
+
+div.static {
+    background-image: url('../assets/BackgroundLg.jpeg');
+    background-position: center;
+    position: fixed;
+    width: 100%;
+    background-size: 100%;
+    margin: 0px auto;
+    padding: 0px;
+    height:100vh;
+    background-repeat: no-repeat;
+    background-color: black;
+}

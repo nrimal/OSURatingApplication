@@ -1,0 +1,10 @@
+<h1>Add a Review</h1>
+<p>Find me in app/views/user/login.html.erb</p>
+<%= form_tag("/updateReview", method: "post") do %>
+    <div>
+        <label> Reviewing :: </label>
+    </div>
+  <label></label>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Submit!") %>
+<% end %>

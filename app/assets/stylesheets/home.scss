@@ -1,0 +1,112 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #E7E8E7;
+    color:black;
+}
+
+h1.header {
+    margin: 0px auto;
+    margin-top: 10px;
+}
+
+div.childLeft {
+    float:left;
+    width: 45%;
+    padding-left: 5%;
+}
+div.childRight {
+    float:right;
+    width: 45%;
+    padding-right: 5%;
+}
+
+hr.home {
+    border-color: black;
+}
+
+
+.login {
+    left: 98%;
+    transform: translate(-98%, 0);
+    margin-right: 25px;
+    margin-top: 25px;
+}
+
+.input {
+    width: 400px;
+    left: -25%;
+    transform: translate(25%, 0);
+}
+
+div.background {
+    background-image: url('../assets/BackgroundLg.jpeg');
+    background-position: center;
+    background-size: 100%;
+    margin: 0px auto;
+    padding: 0px;
+    height:100vh;
+    background-repeat: no-repeat;
+    background-color: black;
+}
+
+div.surrounding{
+    position: relative;
+}
+
+div.homeSurrounding {
+    padding-top: 150px;
+}
+
+div.boxInfo {
+    padding-top: 0px;
+    text-align: center;
+    opacity: 0.8;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+div.homeBoxInfo{
+    margin: 0px auto;
+    height: 330px;
+    width: 600px;
+}
+
+div.middleBox {
+    background-color: white;
+    border-radius: 25px;
+    border-style: inset;
+    border-color:#337ab7;
+
+}
+
+.dropdown-menu {
+  left: 50%;
+  right: auto;
+  text-align: center;
+  transform: translate(-50%, 0);
+}
+
+/* Stuff for the user home page */
+a.selections{
+    color: #333;
+    text-decoration: none;
+}
+
+.inputs{
+    width: 45%;
+    border: 1px solid #CCC;
+    margin: auto;
+    align-content: center;
+}
+.inputs:not(:last-child){
+    margin-bottom: 5px;
+}
+.searchbtn{
+    margin-top: 10px;
+}

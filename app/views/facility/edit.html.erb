@@ -1,0 +1,81 @@
+<div class='background'>
+    <%= link_to "Back", :back, class:'btn btn-default back'%>
+    <div class='surrounding'>
+        <div class='middleBox boxInfo newReviewBoxInfo'></div>
+        <div class='accountHeader outer boxInfo newReviewBoxInfo'>
+            <h2>Review a Room</h2>
+
+<form action="/facility/editReview" method="POST">
+  
+    <% @building = params[:building] %>
+    <% @room = params[:room] %>
+    <% @facilityType = params[:facility] %>
+    <% @review = params[:review] %>
+    <% @rating = params[:rating] %>
+    <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+    <label class="input-header">
+        Enter the building name
+    </label>
+    <%= text_field_tag(:building, @building, class:"form-control", readonly:true,) %>
+    <br />
+
+    <label class="input-header">
+        Enter the room number
+    </label>
+    <%= text_field_tag(:room, @room, class:"form-control", readonly:true) %>
+    <br />
+
+    <label class="input-header">
+        Select the facility type
+    </label>
+    <%= select_tag(:facility,@facilityType, options_for_select(@facilitytypes), value:@facilityType, class:"form-control",value:@facilityType, readonly:true) %>
+
+    <br />
+
+    <label class="input-header">
+        Enter the review
+    </label>
+    <%= text_area_tag(:review, @review, class:"form-control") %>
+    <br />
+
+    <label class="input-header">
+        Enter a rating out of 5
+    </label>
+    <%= select_tag(:rating, options_for_select([1,2,3,4,5]), class:"form-control") %>
+    <br />
+
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+</div>
+</div>
+</div>
+
+
+<%= javascript_tag do %>
+
+var buildingAutoComplete = new autoComplete({
+    selector: document.getElementById("building"),
+    minChars: 2,
+    source: function(term, suggest){
+        term = term.toLowerCase();
+        var choices = <%= raw @buildings.to_json %>
+        var matches = [];
+        for (i=0; i< choices.length; i++)
+            if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+        suggest(matches);
+    }
+});
+
+var roomAutoComplete = new autoComplete({
+    selector: document.getElementById("room"),
+    minChars: 1,
+    source: function(term, suggest){
+        term = term.toLowerCase();
+        var choices = <%= raw @rooms.to_json %>
+        var matches = [];
+        for (i=0; i< choices.length; i++)
+            if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+        suggest(matches);
+    }
+});
+<% end %>

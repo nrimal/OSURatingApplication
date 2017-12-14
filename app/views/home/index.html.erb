@@ -1,0 +1,59 @@
+<div class='background'>
+    <% if user_signed_in? %>
+        <div class="login btn-group">
+            <%= link_to("My Account", '/user/viewProfile.html', class:'btn btn-default') %>
+        </div>
+    <% else %>
+            <div class="login btn-group">
+                <%= link_to("Login/Sign Up", '/users/sign_in.html', class:"btn btn-default selections") %>
+            </div>
+    <% end %>
+    <div class='surrounding homeSurrounding'>
+        <div class='middleBox boxInfo homeBoxInfo'></div>
+        <div class='boxInfo homeBoxInfo'>
+            <h1 class='header'>Welcome to FaciliRate</h1>
+            <%= form_tag("/result/showResult", method: "get") do %>
+            <% typeShow = @types.map { |val| val.ftype } %>
+            <div class="input-holder">
+                <span class='childLeft'>
+                <label class="input-header">
+                    Enter the building name
+                </label>
+                    <%= text_field_tag(:building, "", class:"form-control inputs") %>
+                    <label cass="input-header">
+                    Enter the room number
+                    </label>
+                    <%= text_field_tag(:room, "", class:"form-control inputs") %>
+                    <%= select_tag(:facility, options_for_select(typeShow), prompt: "Select a Facility Type") %>
+                </span>
+                <div class="thirdRow">
+                    <%= submit_tag("Search", class: "btn btn-primary searchbtn") %>
+                </div>
+            </div>
+
+            <% end %>
+
+            <hr class='home'>
+
+            <%= link_to("Review a Room", '/facility/new.html', class:'btn btn-default') %>
+
+        </div>
+    </div>
+</div>
+
+<%= javascript_tag do %>
+
+var buildingAutoComplete = new autoComplete({
+    selector: document.getElementById("building"),
+    minChars: 2,
+    source: function(term, suggest){
+        term = term.toLowerCase();
+        <% buildingShow = @buildings.map { |val| val.name } %>
+        var choices = <%= raw buildingShow.to_json %>
+        var matches = [];
+        for (i=0; i< choices.length; i++)
+            if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+        suggest(matches);
+    }
+});
+<% end %>

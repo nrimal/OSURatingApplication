@@ -1,0 +1,138 @@
+
+<div class='static'>
+    &nbsp;
+</div>
+    <div class='return'>
+        <%= link_to("Return Home", '/home/index', class:"btn btn-default button-topright") %>
+    </div>
+<div class='profileInformation'>
+<div class="container-fluid">
+
+<%= render "layouts/searchBar" %>
+<hr class='results'>
+<%if @finalResult.length>0%>
+
+<div class="row main">
+    <h2 class="center" id="retrieveResultsText">Retrieving results...</h2>
+    <table class="table table-hover table-bordered hidden" id="resultsTable">
+    <thead class="thead-dark">
+    <tr>
+    <th data-sort="string" scope="col">Room
+     <span class="caret"></span>
+    </th>
+    <th data-sort="float" scope="col">Average Rating
+     <span class="caret"></span>
+    </th>
+    <th data-sort="string" scope="col">Building
+     <span class="caret"></span>
+    </th>
+    <th data-sort="string" scope="col">Facility Type
+     <span class="caret"></span>
+    </th>
+    <th data-sort="float" class="distanceToUserCol">Distance Away (miles)
+     <span class="caret"></span>
+     </th>
+    </tr>
+    </tr>
+    </thead>
+    <tbody>
+
+    <%@finalResult.each do |val|%>
+    <tr class="rowselect" data-roomId= <%=val.id%> >
+     <% building = Building.find(val.building_id) %>
+    <% faciltyName = FacilityType.find(val.facilitytype_id).ftype%>
+
+    <%@reviews = (Review.where('room_id = ?', val.id)).order(created_at: :desc)
+
+    @numberOfReviews = @reviews.length
+    if @numberOfReviews != 0 then
+        avgReview = (@reviews.reduce(0) { |sum, current| sum + current.rating }) / @numberOfReviews.to_f
+    else
+        avgReview = 0.0
+    end %>
+
+        <td>
+            <%=val.roomNum%>
+        </td>
+        <td>
+            <%=avgReview.round(1)%>
+        </td>
+        <td class="buildingCol" data-latitude="<%= building.latitude%>" data-longitude="<%= building.longitude %>">
+            <%=building.name%>
+        </td>
+        <td>
+            <%=faciltyName%>
+        </td>
+        <td class="distanceToUser">
+            <!-- Distance to user will be computed on the fly with javascript at end of page -->
+        </td>
+    </tr>
+    <%end%>
+    </tbody>
+<%else%>
+    <h2>
+    Sorry no results found
+    </h2>
+<%end%>
+</table>
+</div>
+</div>
+</div>
+<script>
+    $(".rowselect").click(function() {
+        var roomId = $(this).attr('data-roomId');
+        console.log("Room selected::"+this.children[0].innerText);
+        console.log("Building selected::"+this.children[2].innerText);
+        window.location.href = "/room_page/roomInfo"+"?id="+ roomId;
+    });
+
+
+    /* Longitude/Latitude distance algorithm used from http://www.geodatasource.com/developers/javascript */
+    function distance(lat1, lon1, lat2, lon2) {
+        var radlat1 = Math.PI * lat1/180;
+        var radlat2 = Math.PI * lat2/180;
+        var theta = lon1-lon2;
+        var radtheta = Math.PI * theta/180;
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        dist = Math.acos(dist);
+        dist = dist * 180/Math.PI;
+        dist = dist * 60 * 1.1515;
+        return dist;
+    }
+
+
+    // Sort results by distance to user
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(calculateDistances, locationError, {timeout: 5000});
+    }
+
+    // If geolocation API is unavailable for some reason (e.g. times out), show an error message and enable results table.
+    var shownError = false;
+    function locationError(err) {
+      if (!shownError) {
+          alert('Could not get location. Make sure you are on a WiFi network. Distance to user will not be shown.');
+          $("#retrieveResultsText").hide();
+          $("#resultsTable").toggleClass('hidden');
+          shownError = true;
+      }
+    };
+
+    // For each building, calculate the distance to user. Relatively fast operation (linear time), but still takes
+    // a noticable amount of time. Because of this, we show a loading text until results are finished calculating.
+    function calculateDistances(userPosition) {
+        var userLatitude = userPosition.coords.latitude;
+        var userLongitude = userPosition.coords.longitude;
+        $('.rowselect').each(function(index, row) {
+            var buildingCol = $(row).find('.buildingCol');
+            var buildingLatitude = buildingCol.attr('data-latitude');
+            var buildingLongitude = buildingCol.attr('data-longitude');
+            var distanceToUser = distance(userLatitude, userLongitude, buildingLatitude, buildingLongitude);
+            $(row).find('.distanceToUser').text(distanceToUser.toFixed(2));
+        });
+        $("#resultsTable").stupidtable();
+        $('.distanceToUserCol').stupidsort();
+        $("#retrieveResultsText").hide();
+        $("#resultsTable").toggleClass('hidden');
+    }
+
+</script>

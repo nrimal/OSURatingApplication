@@ -1,0 +1,38 @@
+<%
+room = Room.where('id = ?', post.room_id).first
+roomNum = room.roomNum
+building = (Building.where('id = ?', room.building_id).first)
+buildingName = building.name
+facility = (FacilityType.where('id = ?', room.facilitytype_id).first)
+date = Date.parse(post.created_at.to_s)
+if facility != nil then
+    type = facility.ftype
+else
+    type = "Lab"
+end
+%>
+
+<hr />
+
+<p class="postRating">
+    <strong><%= post.rating %>/5</strong>
+</p>
+<p class='buildingName'>
+    <%= buildingName %>
+    <%= roomNum %>
+    (<%= type %>)
+</p>
+
+<br />
+<blockquote class="blockquote">
+  <p class="mb-0"><%= post.review %></p>
+  <footer class="blockquote-footer"><%= user %>, <cite title="Source Title"><%= date %></cite></footer>
+</blockquote>
+
+<% if user_signed_in? && current_user.email == User.find(post.user_id).email then %>
+    <%=link_to "Edit", "../facility/edit?id="+post.id.to_s+"&review="+post.review+"&rating="+post.rating.to_s+"&building="+buildingName.to_s+"&room="+roomNum.to_s+"&facility="+facility.ftype.to_s, class:'btn btn-default btn-sm' %>
+    <%=link_to 'Delete', delete_post_path(:id => post.id),  method: "delete", class:'btn btn-default btn-sm' %>
+
+<% end %>
+
+<br />
