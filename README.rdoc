@@ -1,28 +1,18 @@
-== README
+### Ruby on Rails Project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Project Description
+For this project, the team created an OSU facilities rating site, a.k.a. Facilirate. Using Devise to manage user accounts,  
 
-Things you may want to cover:
+### Running the Project
 
-* Ruby version
+Once these steps are complete, you will be logged in and on the home page. From here, you can search for rooms and post reviews (a room will not appear unless a review has been created for it already! Note that room numbers are not confirmed as existing to allow for unusual rooms and rooms without numbers). From your account page, you can edit your account and edit/delete posts you have made. Please note, location works best when connected to the WiFi. Location will not be accurate when connected via Ethernet.
 
-* System dependencies
+### Notes
+When entering the building name for a review, you MUST select a building name from one of the drop-down options. For example, if you want to post a review for Dreese Laboratories, type "Dree" into the building name field and select the autosuggested option for Dreese Laboratories. If you the building name does not match one of the autosuggested dropdown options, your review will fail (an error page). This is done to maintain consistency across the reviews for the building names in our database.
 
-* Configuration
+### Test Plan
 
-* Database creation
+The testing of the website was done by using system testing i.e. validating the code of each built page and clicking each of the links on every page. Also used Rspec to do some testing in result controller which can be ran using rspec command inside facilitate folder.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+### Contributions
+This project was collaboratively done with group members Matt Deavers, Hunger Bernhardt, Shivang Saxena and lastly Dil Raju for CSE 3901. 
